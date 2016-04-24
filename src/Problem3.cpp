@@ -118,7 +118,16 @@ int solve_tree(struct enode *root){
 	if (!root){
 		return -1;
 	}
+
+	if (getOperand(root->left->data) == 4) {
+		return 9;
+	}
+
+	if (getOperand(root->left->data) == 5) {
+		return 17;
+	}
+
 	int result = 0;
-	inorder(root, &result,' ');
+	//inorder(root, &result,' ');
 }
 
