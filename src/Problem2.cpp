@@ -71,6 +71,70 @@ struct node{
 	struct node *right;
 };
 
+int length(struct node_dll *head){
+	struct node_dll *temp = head;
+	int count = 0;
+	while (temp){
+		count++;
+		temp = temp->next;
+	}
+	return count;
+}
+
+void nodes_count(struct node *root, int *count) {
+	if (!root){
+		return;
+	}
+	(*count)++;
+	nodes_count(root->left, count);
+	nodes_count(root->right, count);
+}
+
+int node_value(struct node_dll *head, int i) {
+	if (!head){
+		return 0;
+	}
+	while (i > 0 && head) {
+		head = head->next;
+		i--;
+	}
+	return head->data;
+}
+
+int inorder(struct node *root, struct node_dll *head, int *i) {
+	if (!root) {
+		return -1;
+	}
+	int left = inorder(root->left, head, i);
+	if (!left) {
+		return 0;
+	}
+	if (root->data != node_value(head, *i)) {
+		return 0;
+	}
+	else {
+		(*i)++;
+	}
+	int right = inorder(root->right, head, i);
+	if (!right){
+		return 0;
+	}
+	return 1;
+}
+
 int is_identical(struct node_dll *head, struct node *root){
-	return -1;
+	if (!root || !head) {
+		return -1;
+	}
+	int dll_length = length(head);
+	int nodesCount = 0;
+	nodes_count(root, &nodesCount);
+	if (dll_length != nodesCount) {
+		return 0;
+	}
+	int i = 0;
+	if (inorder(root, head, &i)) {
+		return 1;
+	}
+	return 0;
 }
