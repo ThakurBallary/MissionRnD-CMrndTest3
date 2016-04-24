@@ -105,7 +105,7 @@ void inorder(struct enode *root, int *result, char sym) {
 		return;
 	}
 	if (isOperator) {
-		sym = 
+		
 	}
 	
 	inorder(root, result, sym);
